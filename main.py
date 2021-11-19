@@ -11,7 +11,7 @@ if __name__ == '__main__':
     parser.add_argument("--embeddings", default="data/glove.6B.300d.txt")
     parser.add_argument("--model", default="data/model")
     parser.add_argument("--prefix",  default="data/model")
-    parser.add_argument("-m", "--num_codebooks", default=32, type=int)
+    parser.add_argument("-m", "--num_codebooks", default=64, type=int)
     parser.add_argument("--lr", default=1e-4, type=float)
     parser.add_argument("-k", "--num_vectors", default=16, type=int)
     parser.add_argument("-d", "--embedding_dim", default=300, type=int)
