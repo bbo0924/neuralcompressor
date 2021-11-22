@@ -247,6 +247,8 @@ class Trainer:
             if self.use_gpu:
                 input_embeds = input_embeds.cuda()
             _, _, reconstructed = self.model(input_embeds)
+            print(start_idx)
+            print(input_embeds.shape)
             distances.extend(np.linalg.norm(
                 (reconstructed-input_embeds).data.cpu(), axis=1).tolist())
         return np.mean(distances)

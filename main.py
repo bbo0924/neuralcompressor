@@ -8,7 +8,7 @@ from nncompress import Trainer
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("--embeddings", default="data/glove.6B.300d.txt")
+    parser.add_argument("--embeddings", default="data/glove/glove.6B.50d.txt")
     parser.add_argument("--model", default="data/model")
     parser.add_argument("--prefix",  default="data/model")
     parser.add_argument("-m", "--num_codebooks", default=64, type=int)
@@ -22,8 +22,8 @@ if __name__ == '__main__':
     parser.add_argument("--export", action="store_true")
     parser.add_argument("--evaluate", action="store_true")
     parser.add_argument("--use_gpu", action="store_true")
-    parser.add_argument("--sample_words", nargs="+",
-                        default=["dog", "dogs", "man", "woman", "king", "queen"])
+    # parser.add_argument("--sample_words", nargs="+",
+    #                     default=["dog", "dogs", "man", "woman", "king", "queen"])
     args = parser.parse_args()
     compressor = EmbeddingCompressor(
         args.embedding_dim, args.num_codebooks, args.num_vectors, use_gpu=args.use_gpu)
@@ -51,4 +51,5 @@ if __name__ == '__main__':
                           args.embedding_dim, args.model, use_gpu=args.use_gpu, batch_size=args.batch_size)
         trainer.load_pretrained_embeddings(args.embeddings)
         distance = trainer.evaluate()
+        # np.savetxt('data/glove/reconstructed.6B.50d.txt', reconstructed.detach().numpy())
         print("Mean euclidean distance:", distance)
