@@ -18,13 +18,13 @@ class PretrainedEmbedding(nn.Embedding):
         """load pretrained embeddings, e.g., Glove """
         super(PretrainedEmbedding, self).__init__(
             *args, norm_type=2, **kwargs)
-        self.vocab = {}
-        self.i2w = {}
+        # self.vocab = {}
+        # self.i2w = {}
 
-    def from_pretrained(self, file, freeze=True, ignore_first=True):
+    def from_pretrained(self, file, freeze=True, ignore_first=False):
         i = 0
         with open(file, "r", encoding="utf-8") as f:
-            print('Loading GloVe vectors...')
+            print('Loading embedding vectors...')
             pretrained_weight = np.zeros(
                 (self.num_embeddings, self.embedding_dim))
             total = self.num_embeddings+1 if ignore_first else self.num_embeddings
@@ -33,11 +33,13 @@ class PretrainedEmbedding(nn.Embedding):
                     pass
                 elif i < total:
                     cols = line.split()
-                    word, vector = cols[0], [float(x) for x in cols[1:]]
+                    # No words in the first column
+                    # word, vector = cols[0], [float(x) for x in cols[1:]]
+                    vector = [float(x) for x in cols]
                     assert len(vector) == self.embedding_dim
                     index = i-1 if ignore_first else i
-                    self.vocab[word] = index
-                    self.i2w[index] = word
+                    # self.vocab[word] = index
+                    # self.i2w[index] = word
                     pretrained_weight[index, :] = np.asarray(vector)
                     i += 1
                 else:
