@@ -129,7 +129,7 @@ class Trainer:
 
     def load_pretrained_embeddings(self, file, freeze=True, ignore_first=False):
         self.embedding.from_pretrained(file, freeze, ignore_first)
-        self.vocab_size = len(self.embedding.vocab)
+        self.vocab_size = self.embedding.num_embeddings
 
     def run(self, max_epochs=300):
         """Train the model by compressing embeddings and save the model to `self._model_path`. 
