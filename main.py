@@ -58,6 +58,6 @@ if __name__ == '__main__':
         ckpt = torch.load(args.checkpoint)
         input_pretrained_embedding = ckpt["model"]["encoder.embed_tokens.weight"]
         if args.use_gpu:
-            np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.cpu().numpy())
+            np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.detach().cpu().numpy())
         else:
             np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.numpy())
