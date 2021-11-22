@@ -120,7 +120,8 @@ class Trainer:
 
         self.model = model
         self.embedding = PretrainedEmbedding(num_embeddings, embedding_dim)
-        self.vocab_size = len(self.embedding.vocab)
+        # self.vocab_size = len(self.embedding.vocab)
+        self.vocab_size = self.embedding.num_embeddings
         self.use_gpu = use_gpu
         self._batch_size = batch_size
         self.optimizer = Adam(model.parameters(), lr=lr)
@@ -130,7 +131,7 @@ class Trainer:
         self.embedding.from_pretrained(file, freeze, ignore_first)
         self.vocab_size = len(self.embedding.vocab)
 
-    def run(self, max_epochs=200):
+    def run(self, max_epochs=300):
         """Train the model by compressing embeddings and save the model to `self._model_path`. 
         """
         torch.manual_seed(3)
