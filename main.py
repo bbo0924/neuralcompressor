@@ -52,7 +52,7 @@ if __name__ == '__main__':
                           args.embedding_dim, args.model, use_gpu=args.use_gpu, batch_size=args.batch_size)
         trainer.load_pretrained_embeddings(args.embeddings)
         distance, reconstructed_embedding = trainer.evaluate()
-        np.savetxt(args.prefix + '_reconstructed_emb.txt', reconstructed_embedding.cpu().numpy())
+        np.savetxt(args.prefix + '_reconstructed_emb.txt', reconstructed_embedding.cpu().detach().numpy())
         print("Mean euclidean distance:", distance)
     elif args.extract:
         ckpt = torch.load(args.checkpoint)
@@ -60,4 +60,4 @@ if __name__ == '__main__':
         if args.use_gpu:
             np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.cpu().detach().numpy())
         else:
-            np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.numpy())
+            np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.cpu().detach().numpy())
