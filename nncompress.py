@@ -250,8 +250,10 @@ class Trainer:
             if self.use_gpu:
                 input_embeds = input_embeds.cuda()
             _, _, reconstructed = self.model(input_embeds)
-            print(start_idx)
-            print(input_embeds.shape)
+            if (len(distances) == 0):
+                reconstructed_embedding = reconstructed
+            else:
+                torch.cat((reconstructed_embedding, reconstructed), 0)
             distances.extend(np.linalg.norm(
                 (reconstructed-input_embeds).data.cpu(), axis=1).tolist())
-        return np.mean(distances)
+        return np.mean(distances), reconstructed_embedding
