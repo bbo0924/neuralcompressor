@@ -24,7 +24,6 @@ if __name__ == '__main__':
     parser.add_argument("--use_gpu", action="store_true")
     # parser.add_argument("--sample_words", nargs="+",
     #                     default=["dog", "dogs", "man", "woman", "king", "queen"])
-    parser.add_argument("-ckpt", "--checkpoint")
     args = parser.parse_args()
     compressor = EmbeddingCompressor(
         args.embedding_dim, args.num_codebooks, args.num_vectors, use_gpu=args.use_gpu)
@@ -54,10 +53,3 @@ if __name__ == '__main__':
         distance, reconstructed_embedding = trainer.evaluate()
         np.savetxt(args.prefix + '_reconstructed_emb.txt', reconstructed_embedding.cpu().detach().numpy())
         print("Mean euclidean distance:", distance)
-    elif args.extract:
-        ckpt = torch.load(args.checkpoint)
-        input_pretrained_embedding = ckpt["model"]["encoder.embed_tokens.weight"]
-        if args.use_gpu:
-            np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.cpu().detach().numpy())
-        else:
-            np.savetxt('input_pretrained_embedding.txt', input_pretrained_embedding.cpu().detach().numpy())

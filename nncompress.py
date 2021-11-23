@@ -243,6 +243,7 @@ class Trainer:
         assert os.path.exists(self._model_path + ".pt")
         vocab_list = list(range(self.vocab_size))
         distances = []
+        reconstructed_embedding = torch.Tensor()
         for start_idx in range(0, self.vocab_size, self._batch_size):
             word_ids = torch.Tensor(
                 vocab_list[start_idx:start_idx + self._batch_size]).long()
@@ -250,10 +251,7 @@ class Trainer:
             if self.use_gpu:
                 input_embeds = input_embeds.cuda()
             _, _, reconstructed = self.model(input_embeds)
-            if (len(distances) == 0):
-                reconstructed_embedding = reconstructed
-            else:
-                torch.cat((reconstructed_embedding, reconstructed), 0)
+            reconstructed_embedding = torch.cat((reconstructed_embedding, reconstructed), 0)
             distances.extend(np.linalg.norm(
                 (reconstructed-input_embeds).data.cpu(), axis=1).tolist())
         return np.mean(distances), reconstructed_embedding
