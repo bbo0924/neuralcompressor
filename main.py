@@ -43,7 +43,7 @@ if __name__ == '__main__':
         trainer = Trainer(compressor, args.num_embeddings,
                           args.embedding_dim, args.model, use_gpu=args.use_gpu, batch_size=args.batch_size)
         trainer.load_pretrained_embeddings(args.embeddings)
-        trainer.export(args.prefix, args.sample_words)
+        trainer.export(args.prefix)
     elif args.evaluate:
         compressor.load_state_dict(torch.load(args.model + ".pt"))
 
