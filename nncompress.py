@@ -231,11 +231,12 @@ class Trainer:
                         code = code.data.cpu().tolist()
                     else:
                         code = code.data.tolist()
-                    word = self.embedding.i2w[wid]
-                    if word in sample_words:
-                        text += word + "\t" + " ".join(map(str, code)) + "\n"
-                    fout.write(word + "\t" +
-                               " ".join(map(str, code)) + "\n")
+                    # word = self.embedding.i2w[wid]
+                    # if word in sample_words:
+                    #     text += word + "\t" + " ".join(map(str, code)) + "\n"
+                    # fout.write(word + "\t" +
+                    #            " ".join(map(str, code)) + "\n")
+                    fout.write(" ".join(map(str, code)) + "\n")
         if text:
             print(text)
 
