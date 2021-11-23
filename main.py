@@ -8,7 +8,7 @@ from nncompress import Trainer
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("--embeddings", default="data/glove/glove.6B.50d.txt")
+    parser.add_argument("--embeddings")
     parser.add_argument("--model", default="data/model")
     parser.add_argument("--prefix",  default="data/model")
     parser.add_argument("-m", "--num_codebooks", default=64, type=int)
