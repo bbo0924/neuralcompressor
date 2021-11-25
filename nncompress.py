@@ -121,6 +121,8 @@ class Trainer:
         self.model = model
         pytorch_total_params = sum(p.numel() for p in model.parameters())
         print("pytorch_total_params ", pytorch_total_params)
+        pytorch_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        print("pytorch_trainable_params ", pytorch_trainable_params)
         self.embedding = PretrainedEmbedding(num_embeddings, embedding_dim)
         # self.vocab_size = len(self.embedding.vocab)
         self.vocab_size = self.embedding.num_embeddings
