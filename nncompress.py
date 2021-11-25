@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from tqdm import tqdm
 from torch.nn.utils import clip_grad_norm_
-from torch.optim import Adam
+from torch.optim import Adam,SGD
 from torch.autograd import Variable
 import torch.nn.functional as f
 import torch.nn as nn
@@ -125,6 +125,7 @@ class Trainer:
         self.use_gpu = use_gpu
         self._batch_size = batch_size
         self.optimizer = Adam(model.parameters(), lr=lr)
+        #self.optimizer = SGD(model.parameters(), lr=lr)
         self._model_path = model_path
 
     def load_pretrained_embeddings(self, file, freeze=True, ignore_first=False):
